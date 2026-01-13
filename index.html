@@ -1,94 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EclairSecurity | Control Panel</title>
-    <style>
-        :root { --accent: #00ffcc; --bg: #050505; }
-        body { background: var(--bg); color: var(--accent); font-family: monospace; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; text-align: center; }
-        .box { border: 1px solid var(--accent); padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,255,204,0.2); width: 85%; max-width: 400px; }
-        .btn { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 15px 20px; cursor: pointer; text-transform: uppercase; margin-top: 20px; width: 100%; font-size: 1rem; transition: 0.3s; }
-        .btn:hover { background: var(--accent); color: var(--bg); }
-        input { background: transparent; border: 1px solid #333; color: var(--accent); padding: 10px; text-align: center; font-size: 1.5rem; width: 80%; margin: 10px 0; outline: none; border-bottom: 2px solid var(--accent); }
-        .loader { display: none; margin: 20px auto; width: 35px; height: 35px; border: 3px solid #111; border-top: 3px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        .hidden { display: none; }
-        .status-text { font-size: 10px; opacity: 0.6; letter-spacing: 1px; }
-    </style>
+  <meta charset="UTF-8">
+  <title>CloudGuard Test</title>
 </head>
 <body>
 
-<div class="box">
-    <!-- Шаг 1: Начало -->
-    <div id="step-init">
-        <h1>EclairSecurity</h1>
-        <p class="status-text">CDN & MALWARE PROTECTION</p>
-        <button class="btn" onclick="goPin()">Активировать защиту</button>
-    </div>
+<!-- Подключаем CloudGuard одной строкой -->
+<script src="https://raw.githubusercontent.com/kostyamessanger/Cloudguard/main/cloudguard.js"></script>
 
-    <!-- Шаг 2: ПИН-код -->
-    <div id="step-pin" class="hidden">
-        <p>УСТАНОВИТЕ ПИН-КОД</p>
-        <input type="text" id="pinInput" maxlength="5" placeholder="5-357">
-        <button class="btn" onclick="installSystem()">Продолжить</button>
-    </div>
-
-    <!-- Шаг 3: Загрузка -->
-    <div id="step-loading" class="hidden">
-        <div class="loader" id="main-loader" style="display:block;"></div>
-        <p id="load-text">Инициализация воркеров...</p>
-    </div>
-
-    <!-- Шаг 4: Успех -->
-    <div id="step-ready" class="hidden">
-        <h2 style="color: white;">СИСТЕМА АКТИВНА</h2>
-        <p style="font-size: 13px;">Eclair теперь фильтрует трафик.</p>
-        <div style="border: 1px solid #222; padding: 10px; margin: 10px 0;">
-            <p style="font-size: 11px; color: #888;">Введите сайт для проверки:</p>
-            <input type="text" id="targetUrl" placeholder="https://example.com" style="font-size: 14px; width: 90%;">
-            <button class="btn" onclick="testUrl()">Перейти безопасно</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    function goPin() {
-        document.getElementById('step-init').classList.add('hidden');
-        document.getElementById('step-pin').classList.remove('hidden');
-    }
-
-    async function installSystem() {
-        const pin = document.getElementById('pinInput').value;
-        if(pin.length < 3) return alert("ПИН-код слишком короткий!");
-
-        document.getElementById('step-pin').classList.add('hidden');
-        document.getElementById('step-loading').classList.remove('hidden');
-
-        if ('serviceWorker' in navigator) {
-            try {
-                // Регистрируем внешний файл eclr-cdn.js
-                await navigator.serviceWorker.register('eclr-cdn.js');
-                
-                setTimeout(() => {
-                    document.getElementById('step-loading').classList.add('hidden');
-                    document.getElementById('step-ready').classList.remove('hidden');
-                }, 2000);
-            } catch (err) {
-                alert("Ошибка воркера: " + err.message);
-                console.error(err);
-            }
-        } else {
-            alert("Ваш браузер не поддерживает Service Workers.");
-        }
-    }
-
-    function testUrl() {
-        let url = document.getElementById('targetUrl').value;
-        if (!url.startsWith('http')) url = 'https://' + url;
-        window.location.href = url;
-    }
-</script>
+<h1>Тест CloudGuard</h1>
+<p>Если ты перезагрузишь страницу много раз — появится блокировка.</p>
 
 </body>
 </html>
