@@ -2,15 +2,24 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>CloudGuard Test</title>
+  <title>CloudGuard Connect</title>
 </head>
 <body>
 
-<!-- Подключаем CloudGuard одной строкой -->
-<script src="https://raw.githubusercontent.com/kostyamessanger/Cloudguard/main/cloudguard.js"></script>
+<h1>Подключение CloudGuard</h1>
 
-<h1>Тест CloudGuard</h1>
-<p>Если ты перезагрузишь страницу много раз — появится блокировка.</p>
+<p>Скопируйте и вставьте этот код перед <code>&lt;/body&gt;</code>:</p>
+
+<pre id="code">
+&lt;script src="https://kostyamessanger.github.io/Cloudguard/scripts/cloudguard-core/cloudguard.js"&gt;&lt;/script&gt;
+</pre>
+
+<button onclick="
+navigator.clipboard.writeText(
+document.getElementById('code').innerText
+)">
+Скопировать
+</button>
 
 </body>
 </html>
